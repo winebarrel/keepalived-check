@@ -100,7 +100,7 @@ end
 
 Aany    = /.+/
 Apath   = Aany
-Astr    = /[a-zA-Z0-9_\.]+/
+Astr    = /[a-zA-Z0-9_\.-]+/
 Anetif  = /[a-zA-Z0-9_\.:]+/
 Aint    = /\-?[0-9]+/
 Ahost   = /[a-zA-Z0-9_\-\.]+/
@@ -183,6 +183,8 @@ Accept = Proc.new do
 				accept :connect_port, Aport
 				accept :bindto, Aip
 				accept :connect_timeout, Aint
+				accept :nb_get_retry, Aint
+				accept :delay_before_retry, Aint
 			end
 
 			block :SMTP_CHECK do
@@ -300,7 +302,7 @@ Accept = Proc.new do
 			try_accept Aipmask, :dev, Anetif, :scope, Regexp.union(*%w[site link host nowhere global_defs])
 		end
 		accept :nopreempt
-		accept :preempt_delay
+		accept :preempt_delay, Aint
 		accept :debug
 		accept :vrrp_unicast_bind, Aip
 		accept :vrrp_unicast_peer, Aip
