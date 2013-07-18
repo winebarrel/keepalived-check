@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 #
 
-require 'phraser'
+$: << File.expand_path(File.dirname(__FILE__)); require 'phraser'
 include Phraser
 
 s = Phraser::Scanner.new
