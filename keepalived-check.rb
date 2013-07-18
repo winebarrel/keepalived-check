@@ -65,6 +65,26 @@ Rule = rule do
 end
 
 
+def self.extend_include(src, base_dir)
+	src.split(/\n/).map {|line|
+		if line =~ /\A\s*include\s*"([^"]+)"\s*\Z/
+			pat = $1
+
+			if pat !~ %r|\A/| && base_dir
+				pat = File.join(base_dir, pat)
+			end
+
+			Dir.glob(pat).select {|path|
+				FileTest.readable?(path)
+			}.map {|path|
+				File.read(path)
+			}.join("\n")
+		else
+			line
+		end
+	}.join("\n")
+end
+
 def self.parse(src)
 	lx = Scanner.scan(src).delete_if {|r| r.token == :blank || r.token == :comment }
 	Phraser::parse(Rule, lx)
@@ -486,12 +506,15 @@ end
 path = ARGV.shift
 if path == "-"
 	src = STDIN.read
+	base_dir = nil
 else
 	src = File.read(path)
+	base_dir = File.dirname(path)
 end
 
 
 begin
+	src = extend_include(src, base_dir)
 	cfg = parse(src)
 	
 	if opt[:verbose]
