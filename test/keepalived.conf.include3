@@ -1,0 +1,12 @@
+vrrp_instance VI_4 {
+    interface eth1
+    smtp_alert
+    virtual_router_id 53
+    priority 50
+    advert_int 1
+    virtual_ipaddress {
+        192.168.201.16
+        192.168.201.17
+        192.168.201.18
+    }
+}
