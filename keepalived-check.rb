@@ -65,7 +65,7 @@ Rule = rule do
 end
 
 
-def self.extend_include(src, base_dir)
+def self.expand_include(src, base_dir)
 	src.split(/\n/).map {|line|
 		if line =~ /\A\s*include\s*"([^"]+)"\s*\Z/
 			pat = $1
@@ -89,7 +89,7 @@ def self.extend_include(src, base_dir)
 		else
 			line
 		end
-	}.join("\n")
+	}.join("\n") + "\n"
 end
 
 def self.parse(src)
@@ -521,7 +521,7 @@ end
 
 
 begin
-	src = extend_include(src, base_dir)
+	src = expand_include(src, base_dir)
 	cfg = parse(src)
 	
 	if opt[:verbose]
