@@ -290,7 +290,7 @@ Accept = Proc.new do
 		try_accept Aipmask, :dev, Anetif
 		try_accept Aipmask, :dev, Anetif, :scope, Regexp.union(*%w[site link host nowhere global_defs])
 		try_accept Aipmask, :dev, Anetif, :scope, Regexp.union(*%w[site link host nowhere global_defs]), :table, Aany
-		# XXX: I did not know keepalived or accept what the table id...
+		# XXX: I do not know what table-id is accepted...
 	end
 end
 
