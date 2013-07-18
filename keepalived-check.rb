@@ -302,6 +302,8 @@ Accept = Proc.new do
 		accept :nopreempt
 		accept :preempt_delay
 		accept :debug
+		accept :vrrp_unicast_bind, Aip
+		accept :vrrp_unicast_peer, Aip
 		accept :notify_master, Apath
 		accept :notify_backup, Apath
 		accept :notify_fault, Apath
