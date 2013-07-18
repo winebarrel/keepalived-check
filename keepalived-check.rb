@@ -74,11 +74,18 @@ def self.extend_include(src, base_dir)
 				pat = File.join(base_dir, pat)
 			end
 
-			Dir.glob(pat).select {|path|
+			include_list = Dir.glob(pat).select do |path|
 				FileTest.readable?(path)
-			}.map {|path|
-				File.read(path)
-			}.join("\n")
+			end
+
+			if include_list.empty?
+				puts "include nothing: #{line}"
+				''
+			else
+				include_list.map {|path|
+					File.read(path)
+				}.join("\n")
+			end
 		else
 			line
 		end
