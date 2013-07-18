@@ -283,7 +283,7 @@ Accept = Proc.new do
 		accept :smtp_alert
 	end
 
-	block :static_route do
+	block :static_routes do
 		try_accept :src, Aip, Aipmask, :via, Aip, :dev, Anetif
 		try_accept Aipmask, :via, Aip, :dev, Anetif
 		try_accept Aipmask, :via, Aip
