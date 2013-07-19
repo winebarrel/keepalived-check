@@ -34,5 +34,5 @@ vrrp_instance VI_1 {
     }
 }
 
-include "*.conf.include2"
-include "*.conf.include3"
+include *.conf.include2
+include *.conf.include3

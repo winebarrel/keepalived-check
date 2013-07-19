@@ -67,7 +67,7 @@ end
 
 def self.expand_include(src, base_dir)
 	src.split(/\n/).map {|line|
-		if line =~ /\A\s*include\s*"([^"]+)"\s*\Z/
+		if line =~ /\A\s*include\s+([^\s]+)\s*\Z/
 			pat = $1
 
 			if pat !~ %r|\A/| && base_dir
